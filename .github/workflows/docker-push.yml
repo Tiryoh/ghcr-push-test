@@ -18,11 +18,11 @@ jobs:
         run: |
           df -h
           curl https://raw.githubusercontent.com/apache/flink/master/tools/azure-pipelines/free_disk_space.sh | bash
-          sudo apt-get remove -y 'adoptopenjdk*'
           sudo apt clean
           docker rmi $(docker image ls --all --quiet)
           # https://github.com/actions/virtual-environments/issues/709#issuecomment-612569242
           sudo rm -rf "/usr/local/share/boost"
+          sudo rm -rf "/usr/local/lib/android"
           sudo rm -rf "$AGENT_TOOLSDIRECTORY"
           df -h
       - name: Download the Docker image
