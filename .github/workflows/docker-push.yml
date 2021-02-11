@@ -16,7 +16,7 @@ jobs:
           password: ${{ secrets.CR_PAT }}
       - name: Download the Docker image
         run: |
-          curl -L '$${{ secrets.IMAGE_URL }}' -o ghcr-test-504-error-image.tar.gz
+          curl -L '${{ secrets.IMAGE_URL }}' -o ghcr-test-504-error-image.tar.gz
           docker load -i ghcr-test-504-error-image.tar.gz
 
       - name: Push the image
