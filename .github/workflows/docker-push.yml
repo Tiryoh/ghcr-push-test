@@ -14,10 +14,13 @@ jobs:
           registry: ghcr.io
           username: Tiryoh
           password: ${{ secrets.CR_PAT }}
+      - name: Make free space
+        run: |
+          docker image prune --force
+          df -h
       - name: Download the Docker image
         run: |
-          curl -L '${{ secrets.IMAGE_URL }}' -o ghcr-test-504-error-image.tar.gz
-          docker load -i ghcr-test-504-error-image.tar.gz
+          curl -L '${{ secrets.IMAGE_URL }}' | docker load
 
       - name: Push the image
         run: docker push ghcr.io/tiryoh/jetson_image_core/image_core:jetpack4.4.1-sdkm1.3.1
