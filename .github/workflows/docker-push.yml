@@ -16,7 +16,12 @@ jobs:
           password: ${{ secrets.CR_PAT }}
       - name: Make free space
         run: |
-          docker image prune --force
+          df -h
+          sudo apt clean
+          docker rmi $(docker image ls --all --quiet)
+          # https://github.com/actions/virtual-environments/issues/709#issuecomment-612569242
+          sudo rm -rf "/usr/local/share/boost"
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
           df -h
       - name: Download the Docker image
         run: |
