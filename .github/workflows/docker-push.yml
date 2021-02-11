@@ -1,0 +1,25 @@
+on:
+  push:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    env:
+      IMAGE: ghcr.io/${{ github.repository }}:
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: Tiryoh
+          password: ${{ secrets.CR_PAT }}
+      - name: Download the Docker image
+        run: |
+          curl -L '$${{ secrets.IMAGE_URL }}' -o ghcr-test-504-error-image.tar.gz
+          docker load -i ghcr-test-504-error-image.tar.gz
+
+      - name: Push the image
+        run: docker push ghcr.io/tiryoh/jetson_image_core/image_core:jetpack4.4.1-sdkm1.3.1
