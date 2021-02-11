@@ -6,8 +6,6 @@ jobs:
     strategy:
       fail-fast: false
     runs-on: ubuntu-latest
-    env:
-      IMAGE: ghcr.io/${{ github.repository }}:
     steps:
       - uses: actions/checkout@v2
       - name: Login to GitHub Container Registry
